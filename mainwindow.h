@@ -9,6 +9,10 @@
 #include <QPushButton>
 #include <QMap>
 
+#include "viewConfig.h"
+
+using namespace COLOR;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -22,11 +26,11 @@ public:
     ~MainWindow();
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
+    QVector<QLabel*> labels;
+    QVector<QPushButton*> buttons;
 
 private:
     Ui::MainWindow *ui;
-    QVector<QLabel*> labels;
-    QVector<QPushButton*> buttons;
     QString clickButton = "";
     void lightLabel(QString buttonText, int r, int g, int b);
     void buttonPress(QString buttonText);
