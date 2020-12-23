@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QMap>
+#include <QApplication>
 
 #include "viewConfig.h"
 #include "enigma.h"
@@ -23,9 +24,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    Enigma enigma;
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QClipboard* pcb = QApplication::clipboard();
+    Enigma enigma;
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
     QVector<QLabel*> labels;
@@ -39,6 +41,8 @@ private:
     void buttonPress(QString buttonText);
     void buttonRelease(QString buttonText);
     void spinUpdate();
+
+    void textDown();
 
 private slots:
     void highLightLabel();

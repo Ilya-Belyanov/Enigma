@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QDebug>
+#include <QScrollBar>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -28,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui -> sRI ->setFocusPolicy(Qt::NoFocus);
     ui -> sRII ->setFocusPolicy(Qt::NoFocus);
     ui -> sRIII ->setFocusPolicy(Qt::NoFocus);
+    ui -> txOutput ->setReadOnly(true);
+    ui -> txOutput -> ensureCursorVisible();
     connect(ui -> sRI, SIGNAL(valueChanged(int)), this, SLOT(changeRI(int)));
     connect(ui -> sRII, SIGNAL(valueChanged(int)), this, SLOT(changeRII(int)));
     connect(ui -> sRIII, SIGNAL(valueChanged(int)), this, SLOT(changeRIII(int)));
@@ -51,11 +54,15 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
     if (event->isAutoRepeat())
-        {
             return;
-        }
-    if(clickButton == event->text().toUpper())
+
+    if (event -> key() == Qt::Key_Tab)
+        pcb->setText(ui -> txOutput -> toPlainText(), QClipboard::Clipboard);
+
+
+    else if(clickButton == event->text().toUpper())
         buttonRelease(event->text().toUpper());
+
 
 }
 
@@ -66,11 +73,21 @@ void MainWindow::highLightLabel()
     ui -> sRI -> setValue(ui -> sRI -> value() + 1);
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
     char letter = buttonSender->text().toStdString()[0];
+
     clickLight = QChar(enigma.encode(letter));
     lightLabel(clickLight, R_LIGHT, G_LIGHT, B_LIGHT);
+
     buttonSender-> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
                                                      .arg(QString::number(R_LIGHT), QString::number(G_LIGHT), QString::number(B_LIGHT))));
     clickButton = buttonSender-> text();
+    textDown();
+}
+
+void MainWindow::textDown()
+{
+    ui -> txOutput -> setText(ui -> txOutput -> toPlainText() + clickLight);
+    QScrollBar *sb =  ui -> txOutput->verticalScrollBar();
+    sb -> setValue(sb -> maximum());
 }
 
 void MainWindow::lowLightLabel()
