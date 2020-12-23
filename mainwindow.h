@@ -38,10 +38,14 @@ private:
     void lightLabel(QString buttonText, int r, int g, int b);
     void buttonPress(QString buttonText);
     void buttonRelease(QString buttonText);
+    void spinUpdate();
 
 private slots:
     void highLightLabel();
     void lowLightLabel();
+    void changeRI(int value);
+    void changeRII(int value);
+    void changeRIII(int value);
 
 
 };

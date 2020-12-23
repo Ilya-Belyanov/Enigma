@@ -24,9 +24,13 @@ MainWindow::MainWindow(QWidget *parent)
         connect(n, SIGNAL(pressed()), this, SLOT(highLightLabel()));
         connect(n, SIGNAL(released()), this, SLOT(lowLightLabel()));
     }
-    ui -> sRI -> setValue(enigma.configRotor(0));
-    ui -> sRII -> setValue(enigma.configRotor(1));
-    ui -> sRIII -> setValue(enigma.configRotor(2));
+    spinUpdate();
+    ui -> sRI ->setFocusPolicy(Qt::NoFocus);
+    ui -> sRII ->setFocusPolicy(Qt::NoFocus);
+    ui -> sRIII ->setFocusPolicy(Qt::NoFocus);
+    connect(ui -> sRI, SIGNAL(valueChanged(int)), this, SLOT(changeRI(int)));
+    connect(ui -> sRII, SIGNAL(valueChanged(int)), this, SLOT(changeRII(int)));
+    connect(ui -> sRIII, SIGNAL(valueChanged(int)), this, SLOT(changeRIII(int)));
 }
 
 MainWindow::~MainWindow()
@@ -59,6 +63,7 @@ void MainWindow::highLightLabel()
 {
     if (clickButton != "")
         return;
+    ui -> sRI -> setValue(ui -> sRI -> value() + 1);
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
     clickLight = QString::fromStdString(enigma.encode(buttonSender->text().toStdString()));
     lightLabel(clickLight, R_LIGHT, G_LIGHT, B_LIGHT);
@@ -117,3 +122,28 @@ void MainWindow::buttonRelease(QString buttonText)
     }
 }
 
+void MainWindow::spinUpdate()
+{
+    ui -> sRI -> setValue(enigma.configRotor(0));
+    ui -> sRII -> setValue(enigma.configRotor(1));
+    ui -> sRIII -> setValue(enigma.configRotor(2));
+}
+
+
+void MainWindow::changeRI(int value)
+{
+    enigma.rotateRotor(0, value);
+    spinUpdate();
+}
+
+void MainWindow::changeRII(int value)
+{
+    enigma.rotateRotor(1, value);
+    spinUpdate();
+}
+
+void MainWindow::changeRIII(int value)
+{
+    enigma.rotateRotor(2, value);
+    spinUpdate();
+}

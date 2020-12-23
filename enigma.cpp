@@ -74,3 +74,49 @@ int Enigma::configRotor(int rotor)
 {
     return rotorConfig[rotor + 1];
 }
+
+void Enigma::rotateRotor(unsigned idRotor, int value)
+{
+    if (idRotor < 0 || idRotor >= rotorConfig.size() - 2)
+        return;
+
+    *rotor(idRotor) = value;
+    checkRotor(idRotor);
+}
+
+void Enigma::rotateRotorUp1(unsigned idRotor)
+{
+    if (idRotor < 0 || idRotor >= rotorConfig.size() - 2)
+        return;
+
+    *rotor(idRotor) += 1;
+    checkRotor(idRotor);
+}
+
+void Enigma::rotateRotorDown1(unsigned idRotor)
+{
+    if (idRotor < 0 || idRotor >= rotorConfig.size() - 2)
+        return;
+
+    *rotor(idRotor) -= 1;
+    checkRotor(idRotor);
+}
+
+void Enigma::checkRotor(unsigned idRotor)
+{
+    if (*rotor(idRotor) >= 26)
+    {
+        *rotor(idRotor) = 0;
+        rotateRotorUp1(idRotor + 1);
+    }
+    else if (*rotor(idRotor) < 0)
+    {
+        *rotor(idRotor) = 25;
+        rotateRotorDown1(idRotor + 1);
+    }
+}
+
+int* Enigma::rotor(unsigned idRotor)
+{
+    return &rotorConfig[idRotor + 1];
+}
