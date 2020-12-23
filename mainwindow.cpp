@@ -65,7 +65,8 @@ void MainWindow::highLightLabel()
         return;
     ui -> sRI -> setValue(ui -> sRI -> value() + 1);
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
-    clickLight = QString::fromStdString(enigma.encode(buttonSender->text().toStdString()));
+    char letter = buttonSender->text().toStdString()[0];
+    clickLight = QChar(enigma.encode(letter));
     lightLabel(clickLight, R_LIGHT, G_LIGHT, B_LIGHT);
     buttonSender-> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
                                                      .arg(QString::number(R_LIGHT), QString::number(G_LIGHT), QString::number(B_LIGHT))));
