@@ -24,7 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
         connect(n, SIGNAL(pressed()), this, SLOT(highLightLabel()));
         connect(n, SIGNAL(released()), this, SLOT(lowLightLabel()));
     }
-
+    ui -> sRI -> setValue(enigma.configRotor(0));
+    ui -> sRII -> setValue(enigma.configRotor(1));
+    ui -> sRIII -> setValue(enigma.configRotor(2));
 }
 
 MainWindow::~MainWindow()
@@ -58,7 +60,8 @@ void MainWindow::highLightLabel()
     if (clickButton != "")
         return;
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
-    lightLabel(buttonSender->text(), R_LIGHT, G_LIGHT, B_LIGHT);
+    clickLight = QString::fromStdString(enigma.encode(buttonSender->text().toStdString()));
+    lightLabel(clickLight, R_LIGHT, G_LIGHT, B_LIGHT);
     buttonSender-> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
                                                      .arg(QString::number(R_LIGHT), QString::number(G_LIGHT), QString::number(B_LIGHT))));
     clickButton = buttonSender-> text();
@@ -69,10 +72,11 @@ void MainWindow::lowLightLabel()
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
     if(clickButton != buttonSender->text())
         return;
-    lightLabel(buttonSender->text(), R_LOW_LABEL, G_LOW_LABEL, B_LOW_LABEL);
+    lightLabel(clickLight, R_LOW_LABEL, G_LOW_LABEL, B_LOW_LABEL);
     buttonSender -> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
                                                       .arg(QString::number(R_LOW_BUTTON), QString::number(G_LOW_BUTTON), QString::number(B_LOW_BUTTON))));
     clickButton = "";
+    clickLight = "";
 }
 
 void MainWindow::lightLabel(QString buttonText, int r, int g, int b)

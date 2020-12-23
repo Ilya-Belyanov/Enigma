@@ -10,6 +10,7 @@
 #include <QMap>
 
 #include "viewConfig.h"
+#include "enigma.h"
 
 using namespace COLOR;
 
@@ -22,6 +23,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    Enigma enigma;
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     virtual void keyPressEvent(QKeyEvent *event);
@@ -32,6 +34,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QString clickButton = "";
+    QString clickLight = "";
     void lightLabel(QString buttonText, int r, int g, int b);
     void buttonPress(QString buttonText);
     void buttonRelease(QString buttonText);
