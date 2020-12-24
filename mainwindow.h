@@ -62,6 +62,8 @@ private slots:
     void encodeText(QString text);
     void saveFile();
 
+    void reload();
+
 
 };
 #endif // MAINWINDOW_H

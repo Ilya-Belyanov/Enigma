@@ -45,10 +45,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui -> bClear, SIGNAL(pressed()), this, SLOT(clearText()));
     connect(ui -> bCopy, SIGNAL(pressed()), this, SLOT(copyText()));
+    connect(ui -> bReload,SIGNAL(pressed()),this,SLOT(reload()));
 
     connect(ui -> actionExit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui -> actionOpen,SIGNAL(triggered()),this,SLOT(openFile()));
     connect(ui -> actionSave,SIGNAL(triggered()),this,SLOT(saveFile()));
+    connect(ui -> actionReload,SIGNAL(triggered()),this,SLOT(reload()));
 
     this -> setAcceptDrops(true);
 }
@@ -291,4 +293,13 @@ void  MainWindow::dragMoveEvent(QDragMoveEvent *event)
 void  MainWindow::dragLeaveEvent(QDragLeaveEvent *event)
 {
     event->accept();
+}
+
+void MainWindow::reload()
+{
+    clearText();
+    ui -> sRI -> setValue(16);
+    ui -> sRII -> setValue(21);
+    ui -> sRIII -> setValue(2);
+
 }
