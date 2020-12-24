@@ -9,13 +9,21 @@ char Enigma::encode(char letter)
     return letter;
 }
 
+string Enigma::encode(string text)
+{
+    string encodeText;
+    for(unsigned i = 0; i < text.size(); i++)
+        encodeText += encode(text[i]);
+    return encodeText;
+}
+
 void Enigma::forwardEncode(char &letter)
 {
     int letterCode;
-    for(unsigned i = 0; i < vrotors.size(); i++)
+    for(unsigned i = 0; i < vrotors.size() - 1; i++)
     {
         letterCode = preRotor(tr.enigmaCode[letter] + rotorConfig[i + 1] - rotorConfig[i]);
-        letter = vrotors[i][decodeLetter(letterCode)];
+        letter = vrotors[i + 1][decodeLetter(letterCode)];
     }
 }
 
@@ -28,14 +36,11 @@ void Enigma::reflection(char &letter)
 void Enigma::backEncode(char &letter)
 {
     int letterCode;
-    for(int i = vrotors.size(); i > 0; i--)
+    for(unsigned i = vrotors.size(); i > 0; i--)
     {
-        letterCode = preRotor(tr.enigmaCode[letter] + rotorConfig[i] - rotorConfig[i + 1]);
+        letterCode = preRotor(tr.enigmaCode[letter] + rotorConfig[i - 1] - rotorConfig[i]);
         letter = encodeRotor(vrotors[i - 1], decodeLetter(letterCode));
     }
-
-    letterCode = preRotor(tr.enigmaCode[letter] + rotorConfig[0] - rotorConfig[1]);
-    letter = decodeLetter(letterCode);
 }
 
 char Enigma::decodeLetter(int value)
@@ -83,7 +88,7 @@ int Enigma::configRotor(unsigned idRotor)
 
 int Enigma::countRotors()
 {
-    return vrotors.size();
+    return vrotors.size() - 1;
 }
 
 void Enigma::rotateRotor(unsigned idRotor, int value)
@@ -130,4 +135,12 @@ void Enigma::checkRotor(unsigned idRotor)
 int* Enigma::rotor(unsigned idRotor)
 {
     return &rotorConfig[idRotor + 1];
+}
+
+bool Enigma::isEnigmaEncode(char letter)
+{
+    for(unsigned i = 0; i < enigmaLetter.size(); i++)
+        if(letter == enigmaLetter[i])
+            return true;
+    return false;
 }

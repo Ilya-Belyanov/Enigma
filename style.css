@@ -1,28 +1,33 @@
 QMainWindow {
-  background-color: #1d1f21; }
+  background-color: #1d1f21; 
+  background-image: url(:/img/Fon.jpg)
+  }
   
 QMenuBar {
-    background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
-                                      stop:0 rgb(126,7,169), stop:1 #1d1f21);
+    background-color: #1d1f21;
     spacing: 3px; /* spacing between menu bar items */
 }
 
 QMenuBar::item {
     padding: 1px 4px;
-    background: rgb(67,34,77);
-	border-color: rgb(126,7,169);
+    background: rgb(79, 80, 92);
+	border-color: rgb(192,192,192);
+	border-style: outset;
+    border-width: 1px;
 	color: white;
     border-radius: 4px;
 }
 
 QMenuBar::item:selected {
-    background: rgb(126,7,169);
 	color: rgb(255,214,1);
+	border-color: rgb(255,214,1);
 	
 }
 
 QMenuBar::item:pressed {
     background: rgb(255,214,1);
+    border-color: rgb(255,214,1);
+    color: rgb(255,214,1);
 	color: white;
 }
 
@@ -100,7 +105,7 @@ QScrollBar::sub-page:vertical {
  }
 
 QPushButton {
-  border-radius: 25px;
+  border-radius: 27px;
   border-style: outset;
   border-width: 2px;
   border-color: rgb(192,192,192);
@@ -114,6 +119,40 @@ QPushButton {
   max-height: 2em;
   padding: 6px;
 	 }
+QPushButton#bCopy, QPushButton#bClear {
+  border-radius: 10px;
+  border-style: outset;
+  border-width: 2px;
+  border-color: rgb(192,192,192);
+  background-color: rgb(79, 80, 92);
+  color: rgb(255,255,255);
+  font: 15px;
+  font-family:"Yu Gothic Medium";
+  min-width: 2em;
+  min-height: 1em;
+  max-width: 5em;
+  max-height: 2em;
+  padding: 6px;
+	 }
+	 
+QPushButton:disabled#bCopy, QPushButton:disabled#bClear  {
+  color: rgb(126,7,169);
+  border-color: rgb(126,7,169);
+}
+
+QPushButton:hover#bCopy, QPushButton:hover#bClear {
+  border-width: 2px;
+  border-color: rgb(255,214,1);
+  color: rgb(255,214,1); }
+
+QPushButton:pressed#bCopy, QPushButton:pressed#bClear {
+  background-color: rgb(255,214,1);
+  border-width: 1px;
+  color: rgb(255,255,255);
+  border-color: rgb(192,192,192);
+  border-style: inset; }
+
+  
 QPushButton:disabled {
   color: rgb(126,7,169);
   border-color: rgb(126,7,169);
@@ -125,6 +164,7 @@ QPushButton:hover {
   color: rgb(255,214,1); }
 
 QPushButton:pressed {
+  border-width: 1px;
   background-color: rgb(255,214,1);
   color: rgb(255,255,255);
   border-color: rgb(192,192,192);
@@ -175,10 +215,10 @@ QSlider::sub-page:vertical {
 }
 
 QLabel {
-  border-radius: 25px;
+  border-radius: 27px;
   background-color: rgb(67,67,67);
   color: rgb(255,255,255);
-  font: 15px;
+  font: 17px;
   font-family:"Yu Gothic Medium";
   min-width: 2em;
   min-height: 2em;

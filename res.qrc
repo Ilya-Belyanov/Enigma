@@ -2,4 +2,7 @@
     <qresource prefix="/styles">
         <file>style.css</file>
     </qresource>
+    <qresource prefix="/img">
+        <file>Fon.jpg</file>
+    </qresource>
 </RCC>

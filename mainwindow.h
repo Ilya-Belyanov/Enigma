@@ -50,6 +50,12 @@ private slots:
     void changeRI(int value);
     void changeRII(int value);
     void changeRIII(int value);
+    void clearText();
+    void copyText();
+
+    void openFile();
+    void encodeText(QString text);
+    void saveFile();
 
 
 };

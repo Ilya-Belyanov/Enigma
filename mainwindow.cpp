@@ -3,6 +3,8 @@
 
 #include <QDebug>
 #include <QScrollBar>
+#include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -34,6 +36,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui -> sRI, SIGNAL(valueChanged(int)), this, SLOT(changeRI(int)));
     connect(ui -> sRII, SIGNAL(valueChanged(int)), this, SLOT(changeRII(int)));
     connect(ui -> sRIII, SIGNAL(valueChanged(int)), this, SLOT(changeRIII(int)));
+
+    connect(ui -> bClear, SIGNAL(pressed()), this, SLOT(clearText()));
+    connect(ui -> bCopy, SIGNAL(pressed()), this, SLOT(copyText()));
+
+    connect(ui -> actionExit,SIGNAL(triggered()),this,SLOT(close()));
+    connect(ui -> actionOpen,SIGNAL(triggered()),this,SLOT(openFile()));
+    connect(ui -> actionSave,SIGNAL(triggered()),this,SLOT(saveFile()));
+
 }
 
 MainWindow::~MainWindow()
@@ -57,8 +67,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
             return;
 
     if (event -> key() == Qt::Key_Tab)
-        pcb->setText(ui -> txOutput -> toPlainText(), QClipboard::Clipboard);
-
+        copyText();
 
     else if(clickButton == event->text().toUpper())
         buttonRelease(event->text().toUpper());
@@ -70,7 +79,9 @@ void MainWindow::highLightLabel()
 {
     if (clickButton != "")
         return;
+
     ui -> sRI -> setValue(ui -> sRI -> value() + 1);
+
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
     char letter = buttonSender->text().toStdString()[0];
 
@@ -80,12 +91,12 @@ void MainWindow::highLightLabel()
     buttonSender-> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
                                                      .arg(QString::number(R_LIGHT), QString::number(G_LIGHT), QString::number(B_LIGHT))));
     clickButton = buttonSender-> text();
+    ui -> txOutput -> setText(ui -> txOutput -> toPlainText() + clickLight);
     textDown();
 }
 
 void MainWindow::textDown()
 {
-    ui -> txOutput -> setText(ui -> txOutput -> toPlainText() + clickLight);
     QScrollBar *sb =  ui -> txOutput->verticalScrollBar();
     sb -> setValue(sb -> maximum());
 }
@@ -164,4 +175,79 @@ void MainWindow::changeRIII(int value)
 {
     enigma.rotateRotor(2, value);
     spinUpdate();
+}
+
+void MainWindow::clearText()
+{
+  ui -> txOutput -> clear();
+}
+
+void MainWindow::copyText()
+{
+  pcb->setText(ui -> txOutput -> toPlainText(), QClipboard::Clipboard);
+}
+
+void MainWindow::openFile()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+             tr("Open Text"), "",
+             tr("Enigma (*.txt);;All Files (*)"));
+
+    if (fileName.isEmpty())
+             return;
+    else
+    {
+         QFile file(fileName);
+         if (!file.open(QIODevice::ReadOnly))
+         {
+             QMessageBox::information(this, tr("Unable to open file"),
+                 file.errorString());
+             return;
+         }
+         encodeText(QString(file.readAll()));
+    }
+}
+
+void MainWindow::encodeText(QString text)
+{
+    clearText();
+    text = text.toUpper();
+    qDebug() << text;
+    string txt = text.toStdString();
+    char letter;
+    for(unsigned i = 0; i < txt.size(); i++)
+    {
+        if (enigma.isEnigmaEncode(txt[i]))
+        {
+            ui -> sRI -> setValue(ui -> sRI -> value() + 1);
+            letter = enigma.encode(txt[i]);
+            ui -> txOutput -> setText(ui -> txOutput -> toPlainText() + QChar(letter));
+        }
+        else if (text[i] != '\xd')
+            ui -> txOutput -> setText(ui -> txOutput -> toPlainText() + text[i]);
+
+    }
+}
+
+void MainWindow::saveFile()
+ {
+     QString fileName = QFileDialog::getSaveFileName(this,
+         tr("Save Encode Text"), "",
+         tr("Enigma (*.txt);;All Files (*)"));
+
+     if (fileName.isEmpty())
+              return;
+     else
+     {
+         QFile file(fileName);
+         if (!file.open(QIODevice::WriteOnly))
+         {
+             QMessageBox::information(this, tr("Unable to open file"),
+                 file.errorString());
+             return;
+         }
+         QByteArray data = ui -> txOutput -> toPlainText().toUtf8();
+         file.write(data);
+         file.close();
+     }
 }

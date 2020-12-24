@@ -7,8 +7,20 @@
     <x>0</x>
     <y>0</y>
     <width>814</width>
-    <height>600</height>
+    <height>700</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>814</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>814</width>
+    <height>700</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Enigma</string>
@@ -19,6 +31,24 @@
      <layout class="QHBoxLayout" name="horizontalLayout_8">
       <item>
        <widget class="QTextEdit" name="txOutput"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_9">
+      <item>
+       <widget class="QPushButton" name="bCopy">
+        <property name="text">
+         <string>Copy</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="bClear">
+        <property name="text">
+         <string>Clear</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -706,8 +736,39 @@
      <height>25</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuSettings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
