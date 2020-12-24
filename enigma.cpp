@@ -13,7 +13,15 @@ string Enigma::encode(string text)
 {
     string encodeText;
     for(unsigned i = 0; i < text.size(); i++)
-        encodeText += encode(text[i]);
+    {
+        if (isEnigmaEncode(text[i]))
+        {
+            rotateRotorUp1(0);
+            encodeText += encode(text[i]);
+        }
+        else if (text[i] != '\xd')
+            encodeText += text[i];
+    }
     return encodeText;
 }
 

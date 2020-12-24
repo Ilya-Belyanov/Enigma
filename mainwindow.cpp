@@ -1,3 +1,5 @@
+#include <ctime>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -204,29 +206,19 @@ void MainWindow::openFile()
                  file.errorString());
              return;
          }
-         encodeText(QString(file.readAll()));
+         encodeText(QString::fromUtf8(file.readAll()));
     }
 }
 
 void MainWindow::encodeText(QString text)
 {
-    clearText();
     text = text.toUpper();
-    qDebug() << text;
-    string txt = text.toStdString();
-    char letter;
-    for(unsigned i = 0; i < txt.size(); i++)
-    {
-        if (enigma.isEnigmaEncode(txt[i]))
-        {
-            ui -> sRI -> setValue(ui -> sRI -> value() + 1);
-            letter = enigma.encode(txt[i]);
-            ui -> txOutput -> setText(ui -> txOutput -> toPlainText() + QChar(letter));
-        }
-        else if (text[i] != '\xd')
-            ui -> txOutput -> setText(ui -> txOutput -> toPlainText() + text[i]);
+    string stdText = text.toStdString();
 
-    }
+    QString encodeText = QString::fromStdString(enigma.encode(stdText));
+
+    ui -> txOutput -> setText(encodeText);
+    spinUpdate();
 }
 
 void MainWindow::saveFile()

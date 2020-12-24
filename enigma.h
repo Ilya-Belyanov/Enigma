@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <map>
+#include <algorithm>
+
 #include "config.h"
 
 using namespace std;
@@ -39,7 +41,7 @@ private:
     int countEncodeLetters = rotors.rotorI.size();
     vector<char> enigmaLetter = {'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
                                  'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
-                                 'Q', 'X', 'C', 'V', 'B', 'N', 'M'};
+                                 'Z', 'X', 'C', 'V', 'B', 'N', 'M'};
     vector<map<char, char>> vrotors = {rotors.defaultRotor, rotors.rotorI, rotors.rotorII, rotors.rotorIII};
     vector<int> rotorConfig = {0, 16, 21, 2, 0};
 
