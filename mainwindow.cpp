@@ -7,6 +7,7 @@
 #include <QScrollBar>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QMimeData>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -29,12 +30,15 @@ MainWindow::MainWindow(QWidget *parent)
         connect(n, SIGNAL(pressed()), this, SLOT(highLightLabel()));
         connect(n, SIGNAL(released()), this, SLOT(lowLightLabel()));
     }
-    spinUpdate();
+
     ui -> sRI ->setFocusPolicy(Qt::NoFocus);
     ui -> sRII ->setFocusPolicy(Qt::NoFocus);
     ui -> sRIII ->setFocusPolicy(Qt::NoFocus);
+    spinUpdate();
+
     ui -> txOutput ->setReadOnly(true);
     ui -> txOutput -> ensureCursorVisible();
+
     connect(ui -> sRI, SIGNAL(valueChanged(int)), this, SLOT(changeRI(int)));
     connect(ui -> sRII, SIGNAL(valueChanged(int)), this, SLOT(changeRII(int)));
     connect(ui -> sRIII, SIGNAL(valueChanged(int)), this, SLOT(changeRIII(int)));
@@ -46,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui -> actionOpen,SIGNAL(triggered()),this,SLOT(openFile()));
     connect(ui -> actionSave,SIGNAL(triggered()),this,SLOT(saveFile()));
 
+    this -> setAcceptDrops(true);
 }
 
 MainWindow::~MainWindow()
@@ -242,4 +247,48 @@ void MainWindow::saveFile()
          file.write(data);
          file.close();
      }
+}
+
+void MainWindow::dropEvent(QDropEvent *event)
+{
+    const QMimeData *mimeData = event->mimeData();
+    if ( mimeData->hasUrls())
+    {
+        QString fileName = mimeData -> text().remove(0,8);
+        QFile file(fileName);
+        if (QFileInfo(file).completeSuffix() != "txt")
+            return;
+        if (!file.open(QIODevice::ReadOnly))
+        {
+            QMessageBox::information(this, tr("Unable to open file"),
+                file.errorString());
+            return;
+        }
+        encodeText(QString::fromUtf8(file.readAll()));
+        event->acceptProposedAction();
+    }
+    else
+    {
+        event->ignore();
+    }
+}
+void  MainWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+    const QMimeData *mimeData = event->mimeData();
+    if ( mimeData->hasUrls() )
+        event->acceptProposedAction();
+    else
+        event->ignore();
+}
+void  MainWindow::dragMoveEvent(QDragMoveEvent *event)
+{
+    const QMimeData *mimeData = event->mimeData();
+    if ( mimeData->hasUrls() )
+        event->acceptProposedAction();
+    else
+        event->ignore();
+}
+void  MainWindow::dragLeaveEvent(QDragLeaveEvent *event)
+{
+    event->accept();
 }
