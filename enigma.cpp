@@ -1,7 +1,10 @@
 #include "enigma.h"
 
+#include <QDebug>
+
 char Enigma::encode(char letter)
 {
+    letter = switchPanel[letter];
     forwardEncode(letter);
     reflection(letter);
     backEncode(letter);
@@ -138,6 +141,20 @@ void Enigma::checkRotor(unsigned idRotor)
         *rotor(idRotor) = countEncodeLetters - 1;
         rotateRotorDown1(idRotor + 1);
     }
+}
+
+void Enigma::connectSwitch(char letterOne, char letterTwo)
+{
+    if (!isEnigmaEncode(letterOne) && !isEnigmaEncode(letterTwo))
+        return;
+
+    if (switchPanel[letterOne] != letterOne)
+        switchPanel[switchPanel[letterOne]] = switchPanel[letterOne];
+    if (switchPanel[letterTwo] != letterTwo)
+        switchPanel[switchPanel[letterTwo]] = switchPanel[letterTwo];
+
+    switchPanel[letterOne] = letterTwo;
+    switchPanel[letterTwo] = letterOne;
 }
 
 int* Enigma::rotor(unsigned idRotor)

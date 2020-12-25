@@ -20,7 +20,8 @@ HEADERS += \
     viewConfig.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    switchPanel.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
