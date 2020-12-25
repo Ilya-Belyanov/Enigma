@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <map>
-#include <algorithm>
 
 #include "config.h"
 
@@ -25,6 +24,8 @@ public:
     bool isEnigmaEncode(char letter);
 
     void connectSwitch(char letterOne, char letterTwo);
+    vector<char> availableLetter();
+    map<char, char> currentSwitchPanel();
 
 private:
     Rotors rotors;

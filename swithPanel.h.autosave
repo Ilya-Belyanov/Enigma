@@ -1,0 +1,20 @@
+#ifndef SWITHPANEL_H
+#define SWITHPANEL_H
+
+#include <QApplication>
+#include <QWidget>
+
+QT_BEGIN_NAMESPACE
+namespace Ui { class SwitchPanel; }
+QT_END_NAMESPACE
+
+class SwithPanel : public QWidget
+{
+    
+public:
+    SwithPanel(QWidget *parent = nullptr);
+    
+private:
+    Ui::SwitchPanel *ui;
+};
+#endif // SWITHPANEL_H

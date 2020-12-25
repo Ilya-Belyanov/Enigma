@@ -863,6 +863,7 @@
      <string>Settings</string>
     </property>
     <addaction name="actionReload"/>
+    <addaction name="actionSwitch_panel"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSettings"/>
@@ -886,6 +887,11 @@
   <action name="actionReload">
    <property name="text">
     <string>Reload</string>
+   </property>
+  </action>
+  <action name="actionSwitch_panel">
+   <property name="text">
+    <string>Switch panel</string>
    </property>
   </action>
  </widget>

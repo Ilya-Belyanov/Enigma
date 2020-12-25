@@ -148,13 +148,23 @@ void Enigma::connectSwitch(char letterOne, char letterTwo)
     if (!isEnigmaEncode(letterOne) && !isEnigmaEncode(letterTwo))
         return;
 
-    if (switchPanel[letterOne] != letterOne)
-        switchPanel[switchPanel[letterOne]] = switchPanel[letterOne];
-    if (switchPanel[letterTwo] != letterTwo)
-        switchPanel[switchPanel[letterTwo]] = switchPanel[letterTwo];
+    //Off old connect
+    switchPanel[switchPanel[letterOne]] = switchPanel[letterOne];
+    switchPanel[switchPanel[letterTwo]] = switchPanel[letterTwo];
 
+    //On new connect
     switchPanel[letterOne] = letterTwo;
     switchPanel[letterTwo] = letterOne;
+}
+
+vector<char> Enigma::availableLetter()
+{
+    return enigmaLetter;
+}
+
+map<char, char> Enigma::currentSwitchPanel()
+{
+    return switchPanel;
 }
 
 int* Enigma::rotor(unsigned idRotor)

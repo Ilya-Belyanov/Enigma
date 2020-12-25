@@ -51,8 +51,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui -> actionOpen,SIGNAL(triggered()),this,SLOT(openFile()));
     connect(ui -> actionSave,SIGNAL(triggered()),this,SLOT(saveFile()));
     connect(ui -> actionReload,SIGNAL(triggered()),this,SLOT(reload()));
+    connect(ui -> actionSwitch_panel,SIGNAL(triggered()),this,SLOT(showSwitchPanel()));
 
     this -> setAcceptDrops(true);
+
+    QFile file(":/res/static/styles/style.css");
+    file.open(QIODevice::ReadOnly);
+    this -> setStyleSheet(file.readAll());
+    file.close();
+
+
+    switchWidget.setEnigma(enigma);
 }
 
 MainWindow::~MainWindow()
@@ -128,8 +137,8 @@ void MainWindow::lightLabel(QString buttonText, int r, int g, int b)
     {
         if(buttonText == labels[i] -> text())
         {
-            labels[i] -> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
-                                                           .arg(QString::number(r), QString::number(g), QString::number(b))));
+            labels[i] -> setStyleSheet(QString("background-color: rgb(%1,%2,%3)")
+                                       .arg(QString::number(r), QString::number(g), QString::number(b)));
         }
     }
 }
@@ -141,8 +150,8 @@ void MainWindow::buttonPress(QString buttonText)
         if(buttonText == buttons[i] -> text())
         {
             buttons[i] -> pressed();
-            buttons[i] -> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
-                                                            .arg(QString::number(R_LIGHT), QString::number(G_LIGHT), QString::number(B_LIGHT))));
+            buttons[i] -> setStyleSheet((QString("background-color: rgb(%1,%2,%3)")
+                                         .arg(QString::number(R_LIGHT), QString::number(G_LIGHT), QString::number(B_LIGHT))));
         }
     }
 }
@@ -156,6 +165,7 @@ void MainWindow::buttonRelease(QString buttonText)
             buttons[i] -> released();
             buttons[i] -> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
                                                             .arg(QString::number(R_LOW_BUTTON), QString::number(G_LOW_BUTTON), QString::number(B_LOW_BUTTON))));
+
         }
     }
 }
@@ -302,4 +312,9 @@ void MainWindow::reload()
     ui -> sRII -> setValue(21);
     ui -> sRIII -> setValue(2);
 
+}
+
+void MainWindow::showSwitchPanel()
+{
+    switchWidget.show();
 }

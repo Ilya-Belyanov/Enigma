@@ -10,8 +10,9 @@
 #include <QMap>
 #include <QApplication>
 
+#include "switchPanel.h"
 #include "viewConfig.h"
-#include "enigma.h"
+#include "Enigma_machine/enigma.h"
 
 using namespace COLOR;
 
@@ -28,6 +29,7 @@ public:
     ~MainWindow();
     QClipboard* pcb = QApplication::clipboard();
     Enigma enigma;
+    SwitchPanel switchWidget;
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
     virtual void dropEvent(QDropEvent *event);
@@ -63,6 +65,7 @@ private slots:
     void saveFile();
 
     void reload();
+    void showSwitchPanel();
 
 
 };

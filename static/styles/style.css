@@ -1,6 +1,6 @@
 QMainWindow {
   background-color: #1d1f21; 
-  background-image: url(:/img/Fon.jpg)
+  background-image: url(:/res/static/img/Fon.jpg)
   }
   
 QMenuBar {

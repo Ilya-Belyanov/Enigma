@@ -1,8 +1,6 @@
 <RCC>
-    <qresource prefix="/styles">
-        <file>style.css</file>
-    </qresource>
-    <qresource prefix="/img">
-        <file>Fon.jpg</file>
+    <qresource prefix="/res">
+        <file>static/styles/style.css</file>
+        <file>static/img/Fon.jpg</file>
     </qresource>
 </RCC>
