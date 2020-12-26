@@ -2,5 +2,6 @@
     <qresource prefix="/res">
         <file>static/styles/style.css</file>
         <file>static/img/Fon.jpg</file>
+        <file>static/styles/styleSwitch.css</file>
     </qresource>
 </RCC>

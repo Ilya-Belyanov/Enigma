@@ -7,7 +7,7 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QDebug>
-#include <QPushButton>
+#include <QFile>
 
 #include "Enigma_machine/enigma.h"
 
@@ -23,13 +23,13 @@ public:
     SwitchPanel(QWidget *parent = nullptr);
     Enigma *enigma;
     void setEnigma(Enigma &e);
+    void reloadComboBox();
 
 private:
     Ui::SwitchPanel *ui;
     QVector<QLabel*> labels;
     QVector<QComboBox*> box;
 
-    void reloadComboBox();
 
 private slots:
     void switchItem(int index);

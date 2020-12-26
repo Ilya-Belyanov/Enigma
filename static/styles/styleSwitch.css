@@ -1,0 +1,41 @@
+
+QWidget#SwitchPanel {
+background-color: #1d1f21;
+background-image: url(:/res/static/img/Fon.jpg);
+  }
+
+QLabel {
+  border-radius: 10px;
+  border-style: outset;
+  border-width: 2px;
+  border-color: rgb(192,192,192);
+  background-color: rgb(67,67,67);
+  color: rgb(255,255,255);
+  font: 17px;
+  font-family:"Yu Gothic Medium";
+  max-width: 3em;
+  max-height: 1em;
+  padding: 6px;
+
+   }
+   
+QComboBox {
+    border: 1px solid gray;
+    border-radius: 3px;
+    background-color: #1d1f21;
+    color: rgb(255,255,255);
+    font: 12px;
+    font-family:"Yu Gothic Medium";
+    padding: 1px 18px 1px 3px;
+    min-width: 1em;
+}
+
+QComboBox QAbstractItemView {
+    border: 2px solid;
+    selection-background-color: #1d1f21;
+    background-color: rgb(192,192,192);
+}
+
+QComboBox:editable {
+    background: white;
+}

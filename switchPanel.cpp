@@ -18,6 +18,11 @@ SwitchPanel::SwitchPanel(QWidget *parent)
            ui->cbD, ui->cbF, ui->cbG, ui->cbH, ui->cbJ, ui->cbK,
            ui->cbL, ui->cbZ, ui->cbX, ui->cbC, ui->cbV, ui->cbB,
            ui->cbN, ui->cbM};
+
+    QFile file(":/res/static/styles/styleSwitch.css");
+    file.open(QIODevice::ReadOnly);
+    this -> setStyleSheet(file.readAll());
+    file.close();
 }
 
 void SwitchPanel::setEnigma(Enigma &e)

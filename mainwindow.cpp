@@ -14,10 +14,12 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     labels = {ui->lA, ui->lB, ui->lC, ui->lD, ui->lE, ui->lF, ui->lG, ui->lH,
              ui->lI, ui->lJ, ui->lK, ui->lL, ui->lM, ui->lN, ui->lO, ui->lP,
              ui->lQ, ui->lR, ui->lS, ui->lT, ui->lU, ui->lV, ui->lW, ui->lX,
              ui->lY, ui->lZ};
+
     buttons = {ui->bA, ui->bB, ui->bC, ui->bD, ui->bE, ui->bF, ui->bG, ui->bH,
              ui->bI, ui->bJ, ui->bK, ui->bL, ui->bM, ui->bN, ui->bO, ui->bP,
              ui->bQ, ui->bR, ui->bS, ui->bT, ui->bU, ui->bV, ui->bW, ui->bX,
@@ -29,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
         QPushButton* n = i.next();
         connect(n, SIGNAL(pressed()), this, SLOT(highLightLabel()));
         connect(n, SIGNAL(released()), this, SLOT(lowLightLabel()));
+        n -> setObjectName("Enter");
     }
 
     ui -> sRI ->setFocusPolicy(Qt::NoFocus);
@@ -43,9 +46,18 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui -> sRII, SIGNAL(valueChanged(int)), this, SLOT(changeRII(int)));
     connect(ui -> sRIII, SIGNAL(valueChanged(int)), this, SLOT(changeRIII(int)));
 
+    ui -> bClear->setObjectName("Support");
+    ui -> bCopy->setObjectName("Support");
+    ui -> bReload->setObjectName("Support");
     connect(ui -> bClear, SIGNAL(pressed()), this, SLOT(clearText()));
     connect(ui -> bCopy, SIGNAL(pressed()), this, SLOT(copyText()));
     connect(ui -> bReload,SIGNAL(pressed()),this,SLOT(reload()));
+
+    ui -> actionExit ->setShortcut(Qt::CTRL + Qt::Key_E);
+    ui -> actionOpen ->setShortcut(Qt::CTRL + Qt::Key_O);
+    ui -> actionSave ->setShortcut(Qt::CTRL + Qt::Key_S);
+    ui -> actionReload ->setShortcut(Qt::CTRL + Qt::Key_R);
+    ui -> actionSwitch_panel ->setShortcut(Qt::CTRL + Qt::Key_P);
 
     connect(ui -> actionExit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui -> actionOpen,SIGNAL(triggered()),this,SLOT(openFile()));
@@ -312,6 +324,8 @@ void MainWindow::reload()
     ui -> sRII -> setValue(21);
     ui -> sRIII -> setValue(2);
 
+    enigma.clearSwitchPanel();
+    switchWidget.reloadComboBox();
 }
 
 void MainWindow::showSwitchPanel()
