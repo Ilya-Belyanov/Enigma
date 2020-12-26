@@ -30,6 +30,7 @@ public:
     QClipboard* pcb = QApplication::clipboard();
     Enigma enigma;
     SwitchPanel switchWidget;
+    virtual void closeEvent(QCloseEvent *event);
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
     virtual void dropEvent(QDropEvent *event);

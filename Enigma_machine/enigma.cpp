@@ -15,6 +15,9 @@ Enigma::Enigma()
 
 char Enigma::encode(char letter)
 {
+    if (autoRotate)
+        rotateRotorUp1(0);
+
     letter = switchPanel[letter];
     forwardEncode(letter);
     reflection(letter);
@@ -30,7 +33,9 @@ string Enigma::encode(string text)
     {
         if (isEnigmaEncode(text[i]))
         {
-            rotateRotorUp1(0);
+            if (!autoRotate)
+                rotateRotorUp1(0);
+
             encodeText += encode(text[i]);
         }
         else if (text[i] != '\xd')

@@ -1,13 +1,11 @@
-#include <ctime>
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QDebug>
 #include <QScrollBar>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QMimeData>
+#include <QCloseEvent>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -79,6 +77,11 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::closeEvent (QCloseEvent *event)
+{
+    switchWidget.close();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)

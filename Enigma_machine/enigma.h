@@ -30,6 +30,8 @@ public:
     map<char, char> currentSwitchPanel();
     void clearSwitchPanel();
 
+    bool autoRotate = false;
+
 private:
     Rotors rotors;
     vector<map<char, char>> vrotors = {rotors.defaultRotor, rotors.rotorI, rotors.rotorII, rotors.rotorIII};
