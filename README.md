@@ -1,6 +1,7 @@
 # Enigma machine
 ***
 **Rotate position**
+=======
 h1 Procedure Encode:
 =====================
 	1. Choise your configuration.
