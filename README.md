@@ -1,21 +1,29 @@
 # Enigma machine
 ***
 
-h1 Appearance
+Appearance
+=====================
 
 ![screenshot](./static/img/screenshot_mainwindow.jpg)
-**Screenshot 1 - Main Window**
 
+**Screenshot 1 - Main Window**
+<br/>
+<br/>
 
 ![screenshot](./static/img/screenshot_rotatepositions.jpg)
+
 **Screenshot 2 - Rotate positions**
+<br/>
+<br/>
 
 
 ![screenshot](./static/img/screenshot_switchpanel.jpg)
-**Screenshot 3 - Rotate positions**
 
-=======
-h1 Procedure Encode:
+**Screenshot 3 - Rotate positions**
+<br/>
+<br/>
+
+Procedure Encode:
 =====================
 1. Choise your configuration.
     1. **Rotate positions** *(default 2.21.16)*.
@@ -30,7 +38,7 @@ h1 Procedure Encode:
 	
 3. Save text *(File -> Save or CTRL + S)* or Copy *(button to right)*.
 
-h1 Procedure Decode:
+Procedure Decode:
 =====================
 1. Set configurations for decode *(it are start configuration* **Rotate positions** *and* **Switch panel**
 	*during encode)*.
@@ -41,7 +49,7 @@ h1 Procedure Decode:
     3. Open .txt file with text *(File -> Open or CTRL + O)*.
     4. Drop .txt file to the app.	
 	
-h1 Dop functions:
+Dop functions:
 =====================
 1. Button **Reload** on main window -> set default configurations.
 2. Button **Clear** on main window -> clear text frame.
