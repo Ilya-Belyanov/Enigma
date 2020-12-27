@@ -10,43 +10,48 @@ QMenuBar {
     spacing: 3px;
 }
 
-QMenuBar::item {
+QMenuBar::item
+{
     padding: 1px 4px;
     background: rgb(79, 80, 92);
     border-color: rgb(192,192,192);
     border-style: outset;
     border-width: 1px;
-    Scolor: white;
+    color: white;
     border-radius: 4px;
 }
 
-QMenuBar::item:selected {
-	color: rgb(255,214,1);
-	border-color: rgb(255,214,1);
-	
+QMenuBar::item:selected
+{
+    color: rgb(255,214,1);
+    border-color: rgb(255,214,1);
 }
 
-QMenuBar::item:pressed {
+QMenuBar::item:pressed
+{
     background: rgb(255,214,1);
     border-color: rgb(255,214,1);
     color: rgb(255,214,1);
-	color: white;
+    color: white;
 }
 
-QMenu {
-	color: white;
+QMenu
+{
+    color: white;
     background-color: #31363b;
     border: 1px solid black;
 }
 
-QMenu::item:selected { 
+QMenu::item:selected
+{
     background-color: #1d1f21;
-	color: rgb(255,214,1);
+    color: rgb(255,214,1);
 }
 
-QMenu::item:pressed { 
+QMenu::item:pressed
+{
     background: rgb(255,214,1);
-	color: white;
+   color: white;
 }
 
 QTabWidget::pane {

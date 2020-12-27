@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>Switch panel</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/res/static/img/Icon.jpg</normaloff>:/res/static/img/Icon.jpg</iconset>
+  </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>
@@ -587,6 +591,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

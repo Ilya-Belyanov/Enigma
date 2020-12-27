@@ -1,11 +1,24 @@
 # Enigma machine
 ***
 
+h1 Appearance
+
+![screenshot](./static/img/screenshot_mainwindow.jpg)
+**Screenshot 1 - Main Window**
+
+
+![screenshot](./static/img/screenshot_rotatepositions.jpg)
+**Screenshot 2 - Rotate positions**
+
+
+![screenshot](./static/img/screenshot_switchpanel.jpg)
+**Screenshot 3 - Rotate positions**
+
 =======
 h1 Procedure Encode:
 =====================
 1. Choise your configuration.
-    1. **Rotate position** *(default 2.21.16)*.
+    1. **Rotate positions** *(default 2.21.16)*.
     2. Choise switch letters on **Switch panel** *(Setting -> Switch panel or  CTRL + S)*.
     3. Remember configuration.
 		
@@ -19,7 +32,7 @@ h1 Procedure Encode:
 
 h1 Procedure Decode:
 =====================
-1. Set configurations for decode *(it are start configuration* **rotate positions** *and* **switch panel**
+1. Set configurations for decode *(it are start configuration* **Rotate positions** *and* **Switch panel**
 	*during encode)*.
 	
 2. Enter text.
@@ -30,8 +43,8 @@ h1 Procedure Decode:
 	
 h1 Dop functions:
 =====================
-1. Button **Reload** -> set default configurations.
-2. Button **Clear** -> clear text frame.
+1. Button **Reload** on main window -> set default configurations.
+2. Button **Clear** on main window -> clear text frame.
 	
 
 		

@@ -9,8 +9,6 @@
 #include <QtGui>
 #include <QtCore>
 
-
-
 #include "Enigma_machine/enigma.h"
 
 QT_BEGIN_NAMESPACE
