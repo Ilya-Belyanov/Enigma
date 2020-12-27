@@ -1,20 +1,22 @@
 QMainWindow {
-  background-color: #1d1f21; 
-  background-image: url(:/res/static/img/Fon.jpg)
+  background-image: url(:/res/static/img/Fon.jpg);
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 4px;
   }
   
 QMenuBar {
     background-color: #1d1f21;
-    spacing: 3px; /* spacing between menu bar items */
+    spacing: 3px;
 }
 
 QMenuBar::item {
     padding: 1px 4px;
     background: rgb(79, 80, 92);
-	border-color: rgb(192,192,192);
-	border-style: outset;
+    border-color: rgb(192,192,192);
+    border-style: outset;
     border-width: 1px;
-	color: white;
+    Scolor: white;
     border-radius: 4px;
 }
 

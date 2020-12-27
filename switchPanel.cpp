@@ -1,6 +1,12 @@
 #include "switchPanel.h"
 #include "ui_switchPanel.h"
 
+
+#include <QPixmap>
+#include <QPalette>
+#include <QBrush>
+
+
 SwitchPanel::SwitchPanel(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SwitchPanel)
@@ -19,10 +25,17 @@ SwitchPanel::SwitchPanel(QWidget *parent)
            ui->cbL, ui->cbZ, ui->cbX, ui->cbC, ui->cbV, ui->cbB,
            ui->cbN, ui->cbM};
 
+    this->setAutoFillBackground(true);
+     QPalette palette;
+     QPixmap pixmap(":/res/static/img/Fon.jpg");
+     palette.setBrush(QPalette::Window, QBrush(pixmap));
+     this->setPalette(palette);
+
     QFile file(":/res/static/styles/styleSwitch.css");
     file.open(QIODevice::ReadOnly);
     this -> setStyleSheet(file.readAll());
     file.close();
+
 }
 
 void SwitchPanel::setEnigma(Enigma &e)

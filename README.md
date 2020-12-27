@@ -6,7 +6,7 @@ h1 Procedure Encode:
 =====================
 1. Choise your configuration.
     1. **Rotate position** *(default 2.21.16)*.
-    2. Choise switch letters on **Switch panel** ***(Setting -> Switch panel or  CTRL + S)***.
+    2. Choise switch letters on **Switch panel** *(Setting -> Switch panel or  CTRL + S)*.
     3. Remember configuration.
 		
 2. Enter text.

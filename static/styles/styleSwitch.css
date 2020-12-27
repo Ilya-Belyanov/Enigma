@@ -1,9 +1,11 @@
 
 QWidget#SwitchPanel {
-background-color: #1d1f21;
-background-image: url(:/res/static/img/Fon.jpg);
+    background-color: #1d1f21;
   }
 
+QFrame#frame {
+    background-image: url(:/res/static/img/Fon.jpg);
+  }
 QLabel {
   border-radius: 10px;
   border-style: outset;
@@ -11,10 +13,10 @@ QLabel {
   border-color: rgb(192,192,192);
   background-color: rgb(67,67,67);
   color: rgb(255,255,255);
-  font: 17px;
+  font: 16px;
   font-family:"Yu Gothic Medium";
   max-width: 3em;
-  max-height: 1em;
+  max-height: 2em;
   padding: 6px;
 
    }

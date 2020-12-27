@@ -64,7 +64,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui -> actionSwitch_panel,SIGNAL(triggered()),this,SLOT(showSwitchPanel()));
 
     this -> setAcceptDrops(true);
-
     QFile file(":/res/static/styles/style.css");
     file.open(QIODevice::ReadOnly);
     this -> setStyleSheet(file.readAll());

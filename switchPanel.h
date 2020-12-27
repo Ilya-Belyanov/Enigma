@@ -1,13 +1,15 @@
 #ifndef SWITHPANEL_H
 #define SWITHPANEL_H
-#include <map>
 
 #include <QWidget>
 #include <QVector>
 #include <QLabel>
 #include <QComboBox>
-#include <QDebug>
 #include <QFile>
+#include <QtGui>
+#include <QtCore>
+
+
 
 #include "Enigma_machine/enigma.h"
 
