@@ -3,12 +3,12 @@
 
 Enigma::Enigma()
 {
-    clearSwitchPanel();
     enigmaLetter = {'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
                     'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
                     'Z', 'X', 'C', 'V', 'B', 'N', 'M'};
 
     rotorConfig = {0, 16, 21, 2, 0};
+    clearSwitchPanel();
 }
 
 char Enigma::encode(char letter)
@@ -47,15 +47,15 @@ void Enigma::forwardEncode(char &letter)
     int letterCode;
     for(unsigned i = 0; i < vrotors.size() - 1; i++)
     {
-        letterCode = preRotor(Translate::enigmaCode.at(letter) + rotorConfig[i + 1] - rotorConfig[i]);
-        letter = vrotors[i + 1].at(decodeLetter(letterCode));
+        letterCode = preRotor(letter + rotorConfig[i + 1] - rotorConfig[i]);
+        letter = vrotors[i + 1].at(letterCode);
     }
 }
 
 void Enigma::reflection(char &letter)
 {
-    int letterCode = preRotor(Translate::enigmaCode.at(letter) - rotorConfig[rotorConfig.size() - 2]);
-    letter = reflectors.at(decodeLetter(letterCode));
+    int letterCode = preRotor(letter - rotorConfig[rotorConfig.size() - 2]);
+    letter = reflectors.at(letterCode);
 }
 
 void Enigma::backEncode(char &letter)
@@ -63,21 +63,9 @@ void Enigma::backEncode(char &letter)
     int letterCode;
     for(unsigned i = vrotors.size(); i > 0; i--)
     {
-        letterCode = preRotor(Translate::enigmaCode.at(letter) + rotorConfig[i - 1] - rotorConfig[i]);
-        letter = encodeRotor(vrotors[i - 1], decodeLetter(letterCode));
+        letterCode = preRotor(letter + rotorConfig[i - 1] - rotorConfig[i]);
+        letter = encodeRotor(vrotors[i - 1], letterCode);
     }
-}
-
-char Enigma::decodeLetter(int value)
-{
-    auto it = Translate::enigmaCode.begin();
-    while(it != Translate::enigmaCode.end())
-    {
-        if(it->second == value)
-            return it->first;
-        it++;
-    }
-    return ' ';
 }
 
 char Enigma::encodeRotor(map<char, char> rotor, char value)
@@ -94,10 +82,10 @@ char Enigma::encodeRotor(map<char, char> rotor, char value)
 
 int Enigma::preRotor(int value)
 {
-    while (value >= countEncodeLetters)
+    while (value >= startEnigmaCode + countEncodeLetters)
             value -= countEncodeLetters;
 
-    while (value < 0)
+    while (value < startEnigmaCode)
         value += countEncodeLetters;
 
     return value;
@@ -183,11 +171,10 @@ map<char, char> Enigma::currentSwitchPanel()
 
 void Enigma::clearSwitchPanel()
 {
-    switchPanel = {{'Q', 'Q'}, {'W', 'W'}, {'E', 'E'}, {'R', 'R'}, {'T', 'T'}, {'Y', 'Y'}, {'U', 'U'},
-                   {'I' ,'I'}, {'O', 'O'}, {'P', 'P'},
-                   {'A', 'A'}, {'S', 'S'}, {'D', 'D'}, {'F', 'F'}, {'G', 'G'}, {'H', 'H'}, {'J', 'J'},
-                   {'K', 'K'}, {'L', 'L'}, {'Z', 'Z'}, {'X', 'X'}, {'C', 'C'}, {'V', 'V'}, {'B', 'B'},
-                   {'N', 'N'}, {'M', 'M'}};
+    switchPanel.clear();
+    for(unsigned i = 0; i < enigmaLetter.size(); i++)
+        switchPanel[enigmaLetter[i]] = enigmaLetter[i];
+
 }
 
 int* Enigma::rotor(unsigned idRotor)

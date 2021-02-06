@@ -5,14 +5,6 @@
 
 using namespace std;
 
-namespace Translate
-{
-    extern const map<char, int> keyCode;
-    extern const map<char, int> enigmaCode;
-};
-
-
-
 namespace Rotors
 {
     extern const map<char, char> defaultRotor;

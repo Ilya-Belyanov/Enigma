@@ -48,6 +48,7 @@ private:
     char encodeRotor(map<char, char> rotor, char value);
 
     vector<char> enigmaLetter;
+    int startEnigmaCode = 65;
     int countEncodeLetters = Rotors::rotorI.size();
 
     vector<int> rotorConfig;
