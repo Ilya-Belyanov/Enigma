@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCE_DIR ${PROJECT_SOURCE_DIR})
+set(ENIGMA_DIR "${PROJECT_SOURCE_DIR}/Enigma_machine")
 
 include_directories(${SOURCE_DIR})
 
@@ -22,8 +23,16 @@ file(GLOB SOURCE_FILES
         "${SOURCE_DIR}/*.qrc"
         "${SOURCE_DIR}/*.h"
         "${SOURCE_DIR}/*.ui"
-        "${SOURCE_DIR}/Enigma_machine/*.cpp"
-        "${SOURCE_DIR}/Enigma_machine/*.h")
+        )
+
+
+add_subdirectory(${ENIGMA_DIR})
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Widgets)
+
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+        Qt5::Core
+        Qt5::Widgets
+    PUBLIC
+        enigma)

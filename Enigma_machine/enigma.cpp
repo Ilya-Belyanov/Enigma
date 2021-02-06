@@ -1,7 +1,5 @@
 #include "enigma.h"
 
-#include <QDebug>
-
 
 Enigma::Enigma()
 {
@@ -49,15 +47,15 @@ void Enigma::forwardEncode(char &letter)
     int letterCode;
     for(unsigned i = 0; i < vrotors.size() - 1; i++)
     {
-        letterCode = preRotor(tr.enigmaCode[letter] + rotorConfig[i + 1] - rotorConfig[i]);
-        letter = vrotors[i + 1][decodeLetter(letterCode)];
+        letterCode = preRotor(Translate::enigmaCode.at(letter) + rotorConfig[i + 1] - rotorConfig[i]);
+        letter = vrotors[i + 1].at(decodeLetter(letterCode));
     }
 }
 
 void Enigma::reflection(char &letter)
 {
-    int letterCode = preRotor(tr.enigmaCode[letter] - rotorConfig[rotorConfig.size() - 2]);
-    letter = reflectors.reflectorB[decodeLetter(letterCode)];
+    int letterCode = preRotor(Translate::enigmaCode.at(letter) - rotorConfig[rotorConfig.size() - 2]);
+    letter = reflectors.at(decodeLetter(letterCode));
 }
 
 void Enigma::backEncode(char &letter)
@@ -65,15 +63,15 @@ void Enigma::backEncode(char &letter)
     int letterCode;
     for(unsigned i = vrotors.size(); i > 0; i--)
     {
-        letterCode = preRotor(tr.enigmaCode[letter] + rotorConfig[i - 1] - rotorConfig[i]);
+        letterCode = preRotor(Translate::enigmaCode.at(letter) + rotorConfig[i - 1] - rotorConfig[i]);
         letter = encodeRotor(vrotors[i - 1], decodeLetter(letterCode));
     }
 }
 
 char Enigma::decodeLetter(int value)
 {
-    auto it = tr.enigmaCode.begin();
-    while(it != tr.enigmaCode.end())
+    auto it = Translate::enigmaCode.begin();
+    while(it != Translate::enigmaCode.end())
     {
         if(it->second == value)
             return it->first;

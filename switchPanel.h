@@ -9,7 +9,7 @@
 #include <QtGui>
 #include <QtCore>
 
-#include "Enigma_machine/enigma.h"
+#include "enigma.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SwitchPanel; }

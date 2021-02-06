@@ -19,7 +19,7 @@ Appearance
 
 ![screenshot](./static/img/screenshot_switchpanel.jpg)
 
-**Screenshot 3 - Rotate positions**
+**Screenshot 3 - Switch panel**
 <br/>
 <br/>
 

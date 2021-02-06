@@ -12,7 +12,7 @@
 
 #include "switchPanel.h"
 #include "viewConfig.h"
-#include "Enigma_machine/enigma.h"
+#include "enigma.h"
 
 using namespace COLOR;
 

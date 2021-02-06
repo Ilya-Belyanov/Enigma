@@ -33,11 +33,8 @@ public:
     bool autoRotate = false;
 
 private:
-    Rotors rotors;
-    vector<map<char, char>> vrotors = {rotors.defaultRotor, rotors.rotorI, rotors.rotorII, rotors.rotorIII};
-
-    Reflectors reflectors;
-    Translate tr;
+    vector<map<char, char>> vrotors = {Rotors::defaultRotor, Rotors::rotorI, Rotors::rotorII, Rotors::rotorIII};
+    map<char, char> reflectors = Reflectors::reflectorB;
 
     void forwardEncode(char &letter);
     void reflection(char &letter);
@@ -51,7 +48,7 @@ private:
     char encodeRotor(map<char, char> rotor, char value);
 
     vector<char> enigmaLetter;
-    int countEncodeLetters = rotors.rotorI.size();
+    int countEncodeLetters = Rotors::rotorI.size();
 
     vector<int> rotorConfig;
 
