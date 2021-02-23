@@ -16,12 +16,12 @@ public:
     char encode(char letter);
     string encode(string text);
 
-    int configRotor(unsigned idRotor);
+    int configRotor(size_t idRotor);
     int countRotors();
 
-    void rotateRotor(unsigned idRotor, int value);
-    void rotateRotorUp1(unsigned idRotor);
-    void rotateRotorDown1(unsigned idRotor);
+    void rotateRotor(size_t idRotor, int value);
+    void rotateRotorUp1(size_t idRotor);
+    void rotateRotorDown1(size_t idRotor);
 
     bool isEnigmaEncode(char letter);
 
@@ -29,6 +29,7 @@ public:
     vector<char> availableLetter();
     map<char, char> currentSwitchPanel();
     void clearSwitchPanel();
+    void reload();
 
     bool autoRotate = false;
 
@@ -41,8 +42,8 @@ private:
     void backEncode(char &letter);
     int preRotor(int value);
 
-    int* rotor(unsigned idRotor);
-    void checkRotor(unsigned idRotor);
+    int* rotor(size_t idRotor);
+    void checkRotor(size_t idRotor);
 
     char decodeLetter(int value);
     char encodeRotor(map<char, char> rotor, char value);

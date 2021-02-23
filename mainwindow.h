@@ -9,10 +9,19 @@
 #include <QPushButton>
 #include <QMap>
 #include <QApplication>
+#include <QScrollBar>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QMimeData>
+#include <QCloseEvent>
+#include <QButtonGroup>
+
+#include <QDebug>
 
 #include "switchPanel.h"
 #include "viewConfig.h"
 #include "enigma.h"
+#include "state.h"
 
 using namespace COLOR;
 
@@ -30,6 +39,7 @@ public:
     QClipboard* pcb = QApplication::clipboard();
     Enigma enigma;
     SwitchPanel switchWidget;
+
     virtual void closeEvent(QCloseEvent *event);
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
@@ -38,32 +48,38 @@ public:
     virtual void dragMoveEvent(QDragMoveEvent *event);
     virtual void dragLeaveEvent(QDragLeaveEvent *event);
 
-    QVector<QLabel*> labels;
-    QVector<QPushButton*> buttons;
+    QButtonGroup buttons;
 
 private:
     Ui::MainWindow *ui;
-    QString clickButton = "";
-    QString clickLight = "";
-    void lightLabel(QString buttonText, int r, int g, int b);
-    void buttonPress(QString buttonText);
-    void buttonRelease(QString buttonText);
-    void spinUpdate();
+    State state;
 
+    void connectChar();
+    void connectSpins();
+    void connectSupport();
+    void addActions();
+    void loadStyle();
+
+    void keyButtonPress(QString buttonText);
+    void keyButtonRelease(QString buttonText);
     void textDown();
+    void spinUpdate();
+    void changeColorLabel(QString labelText, int r, int g, int b);
+    void changeColorButton(QPushButton *bt, int r, int g, int b);
 
 private slots:
-    void highLightLabel();
-    void lowLightLabel();
+    void charButtonPress();
+    void charButtonRelease();
     void changeRI(int value);
     void changeRII(int value);
     void changeRIII(int value);
-    void clearText();
-    void copyText();
+
 
     void openFile();
     void encodeText(QString text);
     void saveFile();
+    void clearText();
+    void copyText();
 
     void reload();
     void showSwitchPanel();

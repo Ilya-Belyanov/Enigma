@@ -1,56 +1,64 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QScrollBar>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QMimeData>
-#include <QCloseEvent>
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    labels = {ui->lA, ui->lB, ui->lC, ui->lD, ui->lE, ui->lF, ui->lG, ui->lH,
-             ui->lI, ui->lJ, ui->lK, ui->lL, ui->lM, ui->lN, ui->lO, ui->lP,
-             ui->lQ, ui->lR, ui->lS, ui->lT, ui->lU, ui->lV, ui->lW, ui->lX,
-             ui->lY, ui->lZ};
+    connectChar();
+    connectSpins();
+    connectSupport();
+    addActions();
 
-    buttons = {ui->bA, ui->bB, ui->bC, ui->bD, ui->bE, ui->bF, ui->bG, ui->bH,
-             ui->bI, ui->bJ, ui->bK, ui->bL, ui->bM, ui->bN, ui->bO, ui->bP,
-             ui->bQ, ui->bR, ui->bS, ui->bT, ui->bU, ui->bV, ui->bW, ui->bX,
-             ui->bY, ui->bZ};
+    ui -> txOutput ->setReadOnly(true);
+    ui -> txOutput -> ensureCursorVisible();
 
-    QVectorIterator<QPushButton*> i(buttons);
-    while (i.hasNext())
+    switchWidget.setEnigma(enigma);
+    loadStyle();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::connectChar()
+{
+    foreach(QPushButton *button, ui->groupBox->findChildren<QPushButton *>())
     {
-        QPushButton* n = i.next();
-        connect(n, SIGNAL(pressed()), this, SLOT(highLightLabel()));
-        connect(n, SIGNAL(released()), this, SLOT(lowLightLabel()));
-        n -> setObjectName("Enter");
+        connect(button, SIGNAL(pressed()), this, SLOT(charButtonPress()));
+        connect(button, SIGNAL(released()), this, SLOT(charButtonRelease()));
+        button -> setObjectName("Enter");
+        buttons.addButton(button);
     }
+}
 
+void MainWindow::connectSpins()
+{
     ui -> sRI ->setFocusPolicy(Qt::NoFocus);
     ui -> sRII ->setFocusPolicy(Qt::NoFocus);
     ui -> sRIII ->setFocusPolicy(Qt::NoFocus);
     spinUpdate();
 
-    ui -> txOutput ->setReadOnly(true);
-    ui -> txOutput -> ensureCursorVisible();
-
     connect(ui -> sRI, SIGNAL(valueChanged(int)), this, SLOT(changeRI(int)));
     connect(ui -> sRII, SIGNAL(valueChanged(int)), this, SLOT(changeRII(int)));
     connect(ui -> sRIII, SIGNAL(valueChanged(int)), this, SLOT(changeRIII(int)));
+}
 
+void MainWindow::connectSupport()
+{
     ui -> bClear->setObjectName("Support");
     ui -> bCopy->setObjectName("Support");
     ui -> bReload->setObjectName("Support");
     connect(ui -> bClear, SIGNAL(pressed()), this, SLOT(clearText()));
     connect(ui -> bCopy, SIGNAL(pressed()), this, SLOT(copyText()));
     connect(ui -> bReload,SIGNAL(pressed()),this,SLOT(reload()));
+}
 
+void MainWindow::addActions()
+{
     ui -> actionExit ->setShortcut(Qt::CTRL + Qt::Key_E);
     ui -> actionOpen ->setShortcut(Qt::CTRL + Qt::Key_O);
     ui -> actionSave ->setShortcut(Qt::CTRL + Qt::Key_S);
@@ -62,35 +70,24 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui -> actionSave,SIGNAL(triggered()),this,SLOT(saveFile()));
     connect(ui -> actionReload,SIGNAL(triggered()),this,SLOT(reload()));
     connect(ui -> actionSwitch_panel,SIGNAL(triggered()),this,SLOT(showSwitchPanel()));
+}
 
+void MainWindow::loadStyle()
+{
     this -> setAcceptDrops(true);
     QFile file(":/res/static/styles/style.css");
     file.open(QIODevice::ReadOnly);
     this -> setStyleSheet(file.readAll());
     file.close();
-
-
-    switchWidget.setEnigma(enigma);
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-
-void MainWindow::closeEvent (QCloseEvent *event)
-{
-    switchWidget.close();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->isAutoRepeat())
-        {
             return;
-        }
-    if (clickButton == "")
-        buttonPress(event->text().toUpper());
+
+    if (!state.isButtonPress())
+        keyButtonPress(event->text().toUpper());
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event)
@@ -101,30 +98,38 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     if (event -> key() == Qt::Key_Tab)
         copyText();
 
-    else if(clickButton == event->text().toUpper())
-        buttonRelease(event->text().toUpper());
-
-
+    else if(state.isThisButtonPress(event->text().toUpper()))
+        keyButtonRelease(event->text().toUpper());
 }
 
-void MainWindow::highLightLabel()
+void MainWindow::charButtonPress()
 {
-    if (clickButton != "")
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
+    if (state.isButtonPress())
         return;
-
     ui -> sRI -> setValue(ui -> sRI -> value() + 1);
 
-    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
     char letter = buttonSender->text().toStdString()[0];
+    state.pressButton(buttonSender-> text());
+    state.setClickLabel(QChar(enigma.encode(letter)));
 
-    clickLight = QChar(enigma.encode(letter));
-    lightLabel(clickLight, R_LIGHT, G_LIGHT, B_LIGHT);
+    changeColorLabel(state.clickLabel(), R_LIGHT, G_LIGHT, B_LIGHT);
+    changeColorButton(buttonSender, R_LIGHT, G_LIGHT, B_LIGHT);
 
-    buttonSender-> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
-                                                     .arg(QString::number(R_LIGHT), QString::number(G_LIGHT), QString::number(B_LIGHT))));
-    clickButton = buttonSender-> text();
-    ui -> txOutput -> setText(ui -> txOutput -> toPlainText() + clickLight);
+    ui -> txOutput -> setText(ui -> txOutput -> toPlainText() + state.clickLabel());
     textDown();
+}
+
+void MainWindow::charButtonRelease()
+{
+    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
+    if(!state.isButtonPress())
+        return;
+
+    changeColorLabel(state.clickLabel(), R_LOW_LABEL, G_LOW_LABEL, B_LOW_LABEL);
+    changeColorButton(buttonSender, R_LOW_BUTTON, G_LOW_BUTTON, B_LOW_BUTTON);
+
+    state.releaseButton();
 }
 
 void MainWindow::textDown()
@@ -133,91 +138,42 @@ void MainWindow::textDown()
     sb -> setValue(sb -> maximum());
 }
 
-void MainWindow::lowLightLabel()
+void MainWindow::keyButtonPress(QString buttonText)
 {
-    QPushButton* buttonSender = qobject_cast<QPushButton*>(sender()); // retrieve the button you have clicked
-    if(clickButton != buttonSender->text())
-        return;
-    lightLabel(clickLight, R_LOW_LABEL, G_LOW_LABEL, B_LOW_LABEL);
-    buttonSender -> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
-                                                      .arg(QString::number(R_LOW_BUTTON), QString::number(G_LOW_BUTTON), QString::number(B_LOW_BUTTON))));
-    clickButton = "";
-    clickLight = "";
+    foreach(QAbstractButton *button, buttons.buttons())
+        if(buttonText == button -> text())
+             button -> pressed();
 }
 
-void MainWindow::lightLabel(QString buttonText, int r, int g, int b)
+void MainWindow::keyButtonRelease(QString buttonText)
 {
-    for(int i = 0; i < labels.size(); i++)
-    {
-        if(buttonText == labels[i] -> text())
-        {
-            labels[i] -> setStyleSheet(QString("background-color: rgb(%1,%2,%3)")
-                                       .arg(QString::number(r), QString::number(g), QString::number(b)));
-        }
-    }
-}
-
-void MainWindow::buttonPress(QString buttonText)
-{
-    for(int i = 0; i < buttons.size(); i++)
-    {
-        if(buttonText == buttons[i] -> text())
-        {
-            buttons[i] -> pressed();
-            buttons[i] -> setStyleSheet((QString("background-color: rgb(%1,%2,%3)")
-                                         .arg(QString::number(R_LIGHT), QString::number(G_LIGHT), QString::number(B_LIGHT))));
-        }
-    }
-}
-
-void MainWindow::buttonRelease(QString buttonText)
-{
-    for(int i = 0; i < buttons.size(); i++)
-    {
-        if(buttonText == buttons[i] -> text())
-        {
-            buttons[i] -> released();
-            buttons[i] -> setStyleSheet(styleSheet().append(QString("background-color: rgb(%1,%2,%3)")
-                                                            .arg(QString::number(R_LOW_BUTTON), QString::number(G_LOW_BUTTON), QString::number(B_LOW_BUTTON))));
-
-        }
-    }
-}
-
-void MainWindow::spinUpdate()
-{
-    ui -> sRI -> setValue(enigma.configRotor(0));
-    ui -> sRII -> setValue(enigma.configRotor(1));
-    ui -> sRIII -> setValue(enigma.configRotor(2));
+    foreach(QAbstractButton *button, buttons.buttons())
+        if(buttonText == button -> text())
+             button -> released();
 }
 
 
-void MainWindow::changeRI(int value)
+void MainWindow::changeColorLabel(QString labelText, int r, int g, int b)
 {
-    enigma.rotateRotor(0, value);
-    spinUpdate();
+    foreach(QLabel *label, findChildren<QLabel *>())
+        if(labelText == label -> text())
+            label -> setStyleSheet(QString("background-color: rgb(%1,%2,%3)")
+                                    .arg(QString::number(r), QString::number(g), QString::number(b)));
 }
 
-void MainWindow::changeRII(int value)
+void MainWindow::changeColorButton(QPushButton *bt, int r, int g, int b)
 {
-    enigma.rotateRotor(1, value);
-    spinUpdate();
+    bt -> setStyleSheet(QString("background-color: rgb(%1,%2,%3)")
+                        .arg(QString::number(r), QString::number(g), QString::number(b)));
 }
-
-void MainWindow::changeRIII(int value)
-{
-    enigma.rotateRotor(2, value);
-    spinUpdate();
-}
-
 void MainWindow::clearText()
 {
-  ui -> txOutput -> clear();
+    ui -> txOutput -> clear();
 }
 
 void MainWindow::copyText()
 {
-  pcb->setText(ui -> txOutput -> toPlainText(), QClipboard::Clipboard);
+    pcb->setText(ui -> txOutput -> toPlainText(), QClipboard::Clipboard);
 }
 
 void MainWindow::openFile()
@@ -227,7 +183,7 @@ void MainWindow::openFile()
              tr("Enigma (*.txt);;All Files (*)"));
 
     if (fileName.isEmpty())
-             return;
+        return;
     else
     {
          QFile file(fileName);
@@ -298,6 +254,7 @@ void MainWindow::dropEvent(QDropEvent *event)
         event->ignore();
     }
 }
+
 void  MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
     const QMimeData *mimeData = event->mimeData();
@@ -306,6 +263,7 @@ void  MainWindow::dragEnterEvent(QDragEnterEvent *event)
     else
         event->ignore();
 }
+
 void  MainWindow::dragMoveEvent(QDragMoveEvent *event)
 {
     const QMimeData *mimeData = event->mimeData();
@@ -314,23 +272,53 @@ void  MainWindow::dragMoveEvent(QDragMoveEvent *event)
     else
         event->ignore();
 }
+
 void  MainWindow::dragLeaveEvent(QDragLeaveEvent *event)
 {
     event->accept();
 }
 
+void MainWindow::spinUpdate()
+{
+    ui -> sRI -> setValue(enigma.configRotor(0));
+    ui -> sRII -> setValue(enigma.configRotor(1));
+    ui -> sRIII -> setValue(enigma.configRotor(2));
+}
+
+
+void MainWindow::changeRI(int value)
+{
+    enigma.rotateRotor(0, value);
+    spinUpdate();
+}
+
+void MainWindow::changeRII(int value)
+{
+    enigma.rotateRotor(1, value);
+    spinUpdate();
+}
+
+void MainWindow::changeRIII(int value)
+{
+    enigma.rotateRotor(2, value);
+    spinUpdate();
+}
+
 void MainWindow::reload()
 {
-    clearText();
-    ui -> sRI -> setValue(16);
-    ui -> sRII -> setValue(21);
-    ui -> sRIII -> setValue(2);
+    enigma.reload();
 
-    enigma.clearSwitchPanel();
+    clearText();
+    spinUpdate();
     switchWidget.reloadComboBox();
 }
 
 void MainWindow::showSwitchPanel()
 {
     switchWidget.show();
+}
+
+void MainWindow::closeEvent (QCloseEvent *event)
+{
+    switchWidget.close();
 }

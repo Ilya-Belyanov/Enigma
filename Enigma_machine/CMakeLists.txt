@@ -10,7 +10,8 @@ file(GLOB ENIGMA_HEADERS_FILES
         "${PROJECT_SOURCE_DIR}/*.h"
         )
 		
-add_library(enigma ${ENIGMA_SOURCE_FILES} ${ENIGMA_HEADERS_FILES})
+add_library(enigma SHARED ${ENIGMA_SOURCE_FILES} ${ENIGMA_HEADERS_FILES})
+
 target_include_directories(enigma
     PUBLIC
         ${PROJECT_SOURCE_DIR})

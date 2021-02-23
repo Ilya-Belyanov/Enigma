@@ -20,12 +20,16 @@ SwitchPanel::SwitchPanel(QWidget *parent)
            ui->cbL, ui->cbZ, ui->cbX, ui->cbC, ui->cbV, ui->cbB,
            ui->cbN, ui->cbM};
 
+    loadStyle();
 
+}
+
+void SwitchPanel::loadStyle()
+{
     QFile file(":/res/static/styles/styleSwitch.css");
     file.open(QIODevice::ReadOnly);
     this -> setStyleSheet(file.readAll());
     file.close();
-
 }
 
 void SwitchPanel::setEnigma(Enigma &e)
@@ -57,7 +61,6 @@ void SwitchPanel::switchItem(int index)
                           comboBox->itemText(index).toStdString()[0]);
 
     reloadComboBox();
-
 }
 
 void SwitchPanel::reloadComboBox()
@@ -70,6 +73,4 @@ void SwitchPanel::reloadComboBox()
         id = box[i]->findText(QString(switchPanel[available[i]]));
         box[i]->setCurrentIndex(id);
     }
-
-
 }

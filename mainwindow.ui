@@ -528,276 +528,291 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <spacer name="horizontalSpacer_7">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bQ">
-        <property name="text">
-         <string>Q</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bW">
-        <property name="text">
-         <string>W</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bE">
-        <property name="text">
-         <string>E</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bR">
-        <property name="text">
-         <string>R</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bT">
-        <property name="text">
-         <string>T</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bZ">
-        <property name="text">
-         <string>Z</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bU">
-        <property name="text">
-         <string>U</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bI">
-        <property name="text">
-         <string>I</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bO">
-        <property name="text">
-         <string>O</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_8">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bA">
-        <property name="text">
-         <string>A</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bS">
-        <property name="text">
-         <string>S</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bD">
-        <property name="text">
-         <string>D</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bF">
-        <property name="text">
-         <string>F</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bG">
-        <property name="text">
-         <string>G</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bH">
-        <property name="text">
-         <string>H</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bJ">
-        <property name="text">
-         <string>J</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bK">
-        <property name="text">
-         <string>K</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <spacer name="horizontalSpacer_5">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bP">
-        <property name="text">
-         <string>P</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bY">
-        <property name="text">
-         <string>Y</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bX">
-        <property name="text">
-         <string>X</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bC">
-        <property name="text">
-         <string>C</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bV">
-        <property name="text">
-         <string>V</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bB">
-        <property name="text">
-         <string>B</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bN">
-        <property name="text">
-         <string>N</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bM">
-        <property name="text">
-         <string>M</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bL">
-        <property name="text">
-         <string>L</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="maximumSize">
+       <size>
+        <width>800</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>~</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bQ">
+           <property name="text">
+            <string>Q</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bW">
+           <property name="text">
+            <string>W</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bE">
+           <property name="text">
+            <string>E</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bR">
+           <property name="text">
+            <string>R</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bT">
+           <property name="text">
+            <string>T</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bZ">
+           <property name="text">
+            <string>Z</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bU">
+           <property name="text">
+            <string>U</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bI">
+           <property name="text">
+            <string>I</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bO">
+           <property name="text">
+            <string>O</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_8">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bA">
+           <property name="text">
+            <string>A</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bS">
+           <property name="text">
+            <string>S</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bD">
+           <property name="text">
+            <string>D</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bF">
+           <property name="text">
+            <string>F</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bG">
+           <property name="text">
+            <string>G</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bH">
+           <property name="text">
+            <string>H</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bJ">
+           <property name="text">
+            <string>J</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bK">
+           <property name="text">
+            <string>K</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bP">
+           <property name="text">
+            <string>P</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bY">
+           <property name="text">
+            <string>Y</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bX">
+           <property name="text">
+            <string>X</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bC">
+           <property name="text">
+            <string>C</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bV">
+           <property name="text">
+            <string>V</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bB">
+           <property name="text">
+            <string>B</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bN">
+           <property name="text">
+            <string>N</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bM">
+           <property name="text">
+            <string>M</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bL">
+           <property name="text">
+            <string>L</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_11">

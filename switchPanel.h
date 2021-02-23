@@ -30,6 +30,8 @@ private:
     QVector<QLabel*> labels;
     QVector<QComboBox*> box;
 
+    void loadStyle();
+
 
 private slots:
     void switchItem(int index);

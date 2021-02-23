@@ -3,12 +3,7 @@
 
 Enigma::Enigma()
 {
-    enigmaLetter = {'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
-                    'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
-                    'Z', 'X', 'C', 'V', 'B', 'N', 'M'};
-
-    rotorConfig = {0, 16, 21, 2, 0};
-    clearSwitchPanel();
+    reload();
 }
 
 char Enigma::encode(char letter)
@@ -27,7 +22,7 @@ char Enigma::encode(char letter)
 string Enigma::encode(string text)
 {
     string encodeText;
-    for(unsigned i = 0; i < text.size(); i++)
+    for(size_t i = 0; i < text.size(); i++)
     {
         if (isEnigmaEncode(text[i]))
         {
@@ -45,7 +40,7 @@ string Enigma::encode(string text)
 void Enigma::forwardEncode(char &letter)
 {
     int letterCode;
-    for(unsigned i = 0; i < vrotors.size() - 1; i++)
+    for(size_t i = 0; i < vrotors.size() - 1; i++)
     {
         letterCode = preRotor(letter + rotorConfig[i + 1] - rotorConfig[i]);
         letter = vrotors[i + 1].at(letterCode);
@@ -61,7 +56,7 @@ void Enigma::reflection(char &letter)
 void Enigma::backEncode(char &letter)
 {
     int letterCode;
-    for(unsigned i = vrotors.size(); i > 0; i--)
+    for(size_t i = vrotors.size(); i > 0; i--)
     {
         letterCode = preRotor(letter + rotorConfig[i - 1] - rotorConfig[i]);
         letter = encodeRotor(vrotors[i - 1], letterCode);
@@ -91,7 +86,7 @@ int Enigma::preRotor(int value)
     return value;
 }
 
-int Enigma::configRotor(unsigned idRotor)
+int Enigma::configRotor(size_t idRotor)
 {
     if (idRotor >= rotorConfig.size() - 2)
         return 0;
@@ -104,7 +99,7 @@ int Enigma::countRotors()
     return vrotors.size() - 1;
 }
 
-void Enigma::rotateRotor(unsigned idRotor, int value)
+void Enigma::rotateRotor(size_t idRotor, int value)
 {
     if (idRotor >= rotorConfig.size() - 2)
         return;
@@ -113,7 +108,7 @@ void Enigma::rotateRotor(unsigned idRotor, int value)
     checkRotor(idRotor);
 }
 
-void Enigma::rotateRotorUp1(unsigned idRotor)
+void Enigma::rotateRotorUp1(size_t idRotor)
 {
     if (idRotor >= rotorConfig.size() - 2)
         return;
@@ -122,7 +117,7 @@ void Enigma::rotateRotorUp1(unsigned idRotor)
     checkRotor(idRotor);
 }
 
-void Enigma::rotateRotorDown1(unsigned idRotor)
+void Enigma::rotateRotorDown1(size_t idRotor)
 {
     if (idRotor >= rotorConfig.size() - 2)
         return;
@@ -131,7 +126,7 @@ void Enigma::rotateRotorDown1(unsigned idRotor)
     checkRotor(idRotor);
 }
 
-void Enigma::checkRotor(unsigned idRotor)
+void Enigma::checkRotor(size_t idRotor)
 {
     if (*rotor(idRotor) >= countEncodeLetters)
     {
@@ -172,19 +167,29 @@ map<char, char> Enigma::currentSwitchPanel()
 void Enigma::clearSwitchPanel()
 {
     switchPanel.clear();
-    for(unsigned i = 0; i < enigmaLetter.size(); i++)
+    for(size_t i = 0; i < enigmaLetter.size(); i++)
         switchPanel[enigmaLetter[i]] = enigmaLetter[i];
 
 }
 
-int* Enigma::rotor(unsigned idRotor)
+void Enigma::reload()
+{
+    enigmaLetter = {'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
+                    'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
+                    'Z', 'X', 'C', 'V', 'B', 'N', 'M'};
+
+    rotorConfig = {0, 16, 21, 2, 0};
+    clearSwitchPanel();
+}
+
+int* Enigma::rotor(size_t idRotor)
 {
     return &rotorConfig[idRotor + 1];
 }
 
 bool Enigma::isEnigmaEncode(char letter)
 {
-    for(unsigned i = 0; i < enigmaLetter.size(); i++)
+    for(size_t i = 0; i < enigmaLetter.size(); i++)
         if(letter == enigmaLetter[i])
             return true;
     return false;
