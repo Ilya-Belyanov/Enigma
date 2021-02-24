@@ -15,6 +15,7 @@
 #include <QMimeData>
 #include <QCloseEvent>
 #include <QButtonGroup>
+#include <QShortcut>
 
 #include <QDebug>
 
@@ -36,9 +37,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QClipboard* pcb = QApplication::clipboard();
-    Enigma enigma;
-    SwitchPanel switchWidget;
 
     virtual void closeEvent(QCloseEvent *event);
     virtual void keyPressEvent(QKeyEvent *event);
@@ -48,15 +46,19 @@ public:
     virtual void dragMoveEvent(QDragMoveEvent *event);
     virtual void dragLeaveEvent(QDragLeaveEvent *event);
 
-    QButtonGroup buttons;
+    Enigma enigma;
 
 private:
     Ui::MainWindow *ui;
+    QClipboard* pcb = QApplication::clipboard();
+    SwitchPanel switchWidget;
     State state;
+    QButtonGroup buttons;
 
     void connectChar();
     void connectSpins();
     void connectSupport();
+    void connectShortCut();
     void addActions();
     void loadStyle();
 
@@ -74,16 +76,14 @@ private slots:
     void changeRII(int value);
     void changeRIII(int value);
 
-
     void openFile();
     void encodeText(QString text);
     void saveFile();
     void clearText();
     void copyText();
+    void pasteText();
 
     void reload();
     void showSwitchPanel();
-
-
 };
 #endif // MAINWINDOW_H

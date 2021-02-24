@@ -49,24 +49,23 @@ void MainWindow::connectSpins()
 
 void MainWindow::connectSupport()
 {
-    ui -> bClear->setObjectName("Support");
+    ui -> bPaste->setObjectName("Support");
     ui -> bCopy->setObjectName("Support");
+    ui -> bClear->setObjectName("Support");
     ui -> bReload->setObjectName("Support");
-    connect(ui -> bClear, SIGNAL(pressed()), this, SLOT(clearText()));
+
+    connect(ui -> bPaste, SIGNAL(pressed()), this, SLOT(pasteText()));
     connect(ui -> bCopy, SIGNAL(pressed()), this, SLOT(copyText()));
+    connect(ui -> bClear, SIGNAL(pressed()), this, SLOT(clearText()));
     connect(ui -> bReload,SIGNAL(pressed()),this,SLOT(reload()));
 }
 
 void MainWindow::addActions()
 {
-    ui -> actionExit ->setShortcut(Qt::CTRL + Qt::Key_E);
-    ui -> actionOpen ->setShortcut(Qt::CTRL + Qt::Key_O);
-    ui -> actionSave ->setShortcut(Qt::CTRL + Qt::Key_S);
-    ui -> actionReload ->setShortcut(Qt::CTRL + Qt::Key_R);
-    ui -> actionSwitch_panel ->setShortcut(Qt::CTRL + Qt::Key_P);
-
     connect(ui -> actionExit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui -> actionOpen,SIGNAL(triggered()),this,SLOT(openFile()));
+    connect(ui -> actionCopy,SIGNAL(triggered()),this,SLOT(copyText()));
+    connect(ui -> actionPaste,SIGNAL(triggered()),this,SLOT(pasteText()));
     connect(ui -> actionSave,SIGNAL(triggered()),this,SLOT(saveFile()));
     connect(ui -> actionReload,SIGNAL(triggered()),this,SLOT(reload()));
     connect(ui -> actionSwitch_panel,SIGNAL(triggered()),this,SLOT(showSwitchPanel()));
@@ -174,6 +173,11 @@ void MainWindow::clearText()
 void MainWindow::copyText()
 {
     pcb->setText(ui -> txOutput -> toPlainText(), QClipboard::Clipboard);
+}
+
+void MainWindow::pasteText()
+{
+    encodeText(pcb->text());
 }
 
 void MainWindow::openFile()
