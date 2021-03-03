@@ -21,7 +21,7 @@
 
 #include "switchPanel.h"
 #include "viewConfig.h"
-#include "enigma.h"
+#include "qenigma.h"
 #include "state.h"
 
 using namespace COLOR;
@@ -46,7 +46,7 @@ public:
     virtual void dragMoveEvent(QDragMoveEvent *event);
     virtual void dragLeaveEvent(QDragLeaveEvent *event);
 
-    Enigma enigma;
+    QEnigma enigma;
 
 private:
     Ui::MainWindow *ui;

@@ -32,15 +32,15 @@ void SwitchPanel::loadStyle()
     file.close();
 }
 
-void SwitchPanel::setEnigma(Enigma &e)
+void SwitchPanel::setEnigma(QEnigma &e)
 {
     enigma = &e;
-    vector<char> available = enigma->availableLetter();
+    QVector<QChar> available = enigma->availableLetter();
 
     for(int i = 0; i < box.size(); i++)
     {
-        for(unsigned j = 0; j < available.size(); j++)
-            box[i]->addItem(QString(available[j]));
+        for(int j = 0; j < available.size(); j++)
+            box[i]->addItem(available[j]);
         box[i]->setCurrentIndex(i);
         box[i] -> setFocusPolicy(Qt::NoFocus);
         connect(box[i], SIGNAL(currentIndexChanged(int)), this, SLOT(switchItem(int)));
@@ -57,18 +57,18 @@ void SwitchPanel::switchItem(int index)
             indexBox = i;
             break;
         }
-    enigma->connectSwitch(labels[indexBox] -> text().toStdString()[0],
-                          comboBox->itemText(index).toStdString()[0]);
+    enigma->connectSwitch(labels[indexBox] -> text()[0],
+                          comboBox->itemText(index)[0]);
 
     reloadComboBox();
 }
 
 void SwitchPanel::reloadComboBox()
 {
-    map<char, char> switchPanel = enigma->currentSwitchPanel();
-    vector<char> available = enigma->availableLetter();
+    QMap<QChar, QChar> switchPanel = enigma->currentSwitchPanel();
+    QVector<QChar> available = enigma->availableLetter();
     int id;
-    for(unsigned i = 0; i < available.size(); i++)
+    for(int i = 0; i < available.size(); i++)
     {
         id = box[i]->findText(QString(switchPanel[available[i]]));
         box[i]->setCurrentIndex(id);

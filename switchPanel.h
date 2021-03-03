@@ -9,7 +9,7 @@
 #include <QtGui>
 #include <QtCore>
 
-#include "enigma.h"
+#include "qenigma.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SwitchPanel; }
@@ -21,8 +21,8 @@ class SwitchPanel : public QWidget
 
 public:
     SwitchPanel(QWidget *parent = nullptr);
-    Enigma *enigma;
-    void setEnigma(Enigma &e);
+    QEnigma *enigma;
+    void setEnigma(QEnigma &e);
     void reloadComboBox();
 
 private:

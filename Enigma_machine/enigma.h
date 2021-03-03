@@ -45,7 +45,6 @@ private:
     int* rotor(size_t idRotor);
     void checkRotor(size_t idRotor);
 
-    char decodeLetter(int value);
     char encodeRotor(map<char, char> rotor, char value);
 
     vector<char> enigmaLetter;

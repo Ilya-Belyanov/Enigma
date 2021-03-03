@@ -108,9 +108,9 @@ void MainWindow::charButtonPress()
         return;
     ui -> sRI -> setValue(ui -> sRI -> value() + 1);
 
-    char letter = buttonSender->text().toStdString()[0];
+    QChar letter = buttonSender->text()[0];
     state.pressButton(buttonSender-> text());
-    state.setClickLabel(QChar(enigma.encode(letter)));
+    state.setClickLabel(enigma.encode(letter));
 
     changeColorLabel(state.clickLabel(), R_LIGHT, G_LIGHT, B_LIGHT);
     changeColorButton(buttonSender, R_LIGHT, G_LIGHT, B_LIGHT);
@@ -204,10 +204,7 @@ void MainWindow::openFile()
 void MainWindow::encodeText(QString text)
 {
     text = text.toUpper();
-    string stdText = text.toStdString();
-
-    QString encodeText = QString::fromStdString(enigma.encode(stdText));
-
+    QString encodeText = enigma.encode(text);
     ui -> txOutput -> setText(encodeText);
     spinUpdate();
 }
