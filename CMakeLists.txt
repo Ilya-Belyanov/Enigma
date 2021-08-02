@@ -14,8 +14,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCE_DIR ${PROJECT_SOURCE_DIR})
-set(ENIGMA_DIR "${PROJECT_SOURCE_DIR}/Enigma_machine")
-set(QENIGMA_DIR "${PROJECT_SOURCE_DIR}/QEnigma_machine")
+set(ENIGMA_DIR "${PROJECT_SOURCE_DIR}/libs")
 set(TESTS_DIR "${PROJECT_SOURCE_DIR}/QtTests")
 
 include_directories(${SOURCE_DIR})
@@ -29,7 +28,6 @@ file(GLOB SOURCE_FILES
 
 
 add_subdirectory(${ENIGMA_DIR})
-add_subdirectory(${QENIGMA_DIR})
 add_subdirectory(${TESTS_DIR})
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
